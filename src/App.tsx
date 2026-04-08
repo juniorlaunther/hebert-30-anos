@@ -156,7 +156,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full font-sans selection:bg-[#8b5e3c]/30 flex flex-col">
+    <div className="min-h-screen w-full font-sans selection:bg-[#8b5e3c]/30 flex flex-col overflow-x-hidden">
       <AnimatePresence mode="wait">
         {view === 'invitation' && (
           <Invitation

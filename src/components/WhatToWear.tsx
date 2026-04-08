@@ -64,7 +64,7 @@ export default function WhatToWear({ onBack }: WhatToWearProps) {
       animate="visible"
       exit={{ opacity: 0, x: -50 }}
       variants={containerVariants}
-      className={`relative min-h-screen z-40 flex flex-col p-6 ${isPresent ? 'overflow-y-auto' : 'overflow-hidden'}`}
+      className={`relative flex-1 z-40 flex flex-col p-6 ${isPresent ? 'overflow-y-auto' : 'overflow-hidden'}`}
     >
       <motion.button
         variants={itemVariants}

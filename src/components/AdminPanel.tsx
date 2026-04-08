@@ -122,9 +122,15 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         alert(`Acesso negado. O e-mail ${result.user.email} não tem permissão de administrador.`);
         await auth.signOut();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao fazer login:', error);
-      alert('Erro ao tentar realizar o login com Google.');
+      if (error.code === 'auth/unauthorized-domain') {
+        alert('Erro: Domínio não autorizado. Você precisa adicionar "convite.hebertt.com" na lista de domínios autorizados no Console do Firebase (Autenticação > Configurações).');
+      } else if (error.code === 'auth/popup-blocked') {
+        alert('O popup de login foi bloqueado pelo seu navegador. Por favor, permita popups para este site.');
+      } else {
+        alert('Erro ao tentar realizar o login com Google. Verifique se o domínio está autorizado no Firebase.');
+      }
     }
   };
 
@@ -138,7 +144,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="relative min-h-screen z-50 flex flex-col items-center justify-center p-6 text-center"
+        className="relative flex-1 z-50 flex flex-col items-center justify-center p-6 text-center"
       >
         <div className="western-card p-8 rounded-2xl max-w-sm w-full space-y-6">
           <div className="w-20 h-20 bg-[#f4e4bc]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -170,7 +176,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="relative min-h-screen z-50 flex flex-col overflow-hidden"
+      className="relative flex-1 z-50 flex flex-col overflow-hidden"
     >
       {/* Header */}
       <div className="bg-[#52331f] p-4 text-[#f4e4bc] shadow-md flex items-center justify-between border-b-2 border-white/20">

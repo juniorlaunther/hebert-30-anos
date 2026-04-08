@@ -53,7 +53,7 @@ export default function Invitation({
   };
 
   return (
-    <div className="min-h-screen w-full relative flex flex-col overflow-x-hidden">
+    <div className="flex-1 w-full relative flex flex-col overflow-x-hidden">
       {/* Dark Fade-in Overlay - Only on first load */}
       <AnimatePresence>
         {showIntro && (
