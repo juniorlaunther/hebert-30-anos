@@ -1,0 +1,10 @@
+export interface Guest {
+  id?: string;
+  name: string;
+  confirmed: boolean;
+  confirmedAt?: string;
+  companions?: number;
+  message?: string;
+}
+
+export type ViewState = 'invitation' | 'attire' | 'admin';

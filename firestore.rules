@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        ((exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') || 
+         request.auth.token.email.lower() in ["canalpapeldetrouxa@gmail.com", "contatohebertt@gmail.com"]);
+    }
+
+    function isValidGuest(data) {
+      return data.keys().hasAll(['name', 'confirmed']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.confirmed is bool &&
+             (!('confirmedAt' in data) || data.confirmedAt is string) &&
+             (!('companions' in data) || (data.companions is number && data.companions >= 0 && data.companions <= 10)) &&
+             (!('message' in data) || (data.message is string && data.message.size() <= 500));
+    }
+
+    match /guests/{guestId} {
+      // Allow public read to check for names
+      allow read: if true;
+      
+      // Allow public create for confirmation if not on list
+      allow create: if isValidGuest(request.resource.data) || isAdmin();
+      
+      // Allow public update for confirmation
+      allow update: if 
+        (isValidGuest(request.resource.data) && 
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['confirmed', 'confirmedAt'])) ||
+        isAdmin();
+        
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+    
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId || isAdmin();
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Rye", serif;
+  --font-body: "Libre Baskerville", serif;
+  --font-print: "Special Elite", system-ui;
+}
+
+@layer base {
+  body {
+    @apply font-body bg-[#2a1b12] text-[#f4e4bc];
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhKCRPgHXszhLJDXJVMA-vevpMFNHbTAC-E4UoqILyMX7AXpr9MasU2q7JjeKi9RTppcTVe9eJNNAE94XDkSBRghbX2CKGqF4DtLmpL6o9H0hlNIBOru2N6e_7RMlZ_r418T-gm6LTyoQtACgQhZPd0czmx3_CRPLTQlS-Cs-w-McdqjTjy7BKu2AkmtDc/s16000/background%20de%20madeira2.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.2;
+    z-index: -1;
+  }
+
+  /* Global Custom Scrollbar */
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-[#d2b48c]/30 rounded-full hover:bg-[#d2b48c]/50 transition-colors;
+  }
+  
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(210, 180, 140, 0.3) transparent;
+  }
+}
+
+@layer components {
+  .western-card {
+    @apply bg-[#52331f]/85 backdrop-blur-md border-4 border-[#52331f] ring-1 ring-white ring-inset shadow-2xl;
+  }
+  
+  .western-btn {
+    @apply bg-[#52331f] border-4 border-[#52331f] ring-1 ring-white ring-inset text-[#f4e4bc] font-display uppercase tracking-widest py-3 px-6 shadow-lg active:scale-95 transition-all;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
