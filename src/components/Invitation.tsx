@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { MapPin, Shirt, CheckCircle, Calendar, Clock } from 'lucide-react';
+import { MapPin, Shirt, CheckCircle, Calendar, Clock, Gift } from 'lucide-react';
 
 interface InvitationProps {
   key?: string;
@@ -8,6 +8,7 @@ interface InvitationProps {
   onConfirmClick: () => void;
   onLocationClick: () => void;
   onAttireClick: () => void;
+  onGiftClick: () => void;
 }
 
 export default function Invitation({ 
@@ -15,7 +16,8 @@ export default function Invitation({
   showIntro = true,
   onConfirmClick, 
   onLocationClick, 
-  onAttireClick 
+  onAttireClick,
+  onGiftClick
 }: InvitationProps) {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -53,7 +55,13 @@ export default function Invitation({
   };
 
   return (
-    <div className="flex-1 w-full relative flex flex-col overflow-x-hidden">
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit={{ opacity: 0, scale: 0.95 }}
+      className="w-full relative flex flex-col items-center justify-center p-6 text-center gap-3"
+    >
       {/* Dark Fade-in Overlay - Only on first load */}
       <AnimatePresence>
         {showIntro && (
@@ -67,14 +75,7 @@ export default function Invitation({
         )}
       </AnimatePresence>
 
-      {/* Content */}
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 flex-1 flex flex-col items-center justify-center p-6 text-center gap-3"
-      >
-        {/* Header */}
+      {/* Header */}
         <motion.div 
           variants={headerVariants}
           className="flex flex-col items-center mb-2"
@@ -85,8 +86,8 @@ export default function Invitation({
             className="w-32 h-auto mb-4 drop-shadow-xl"
             referrerPolicy="no-referrer"
           />
-          <div className="flex flex-wrap justify-center gap-[0.1em] mb-2">
-            {"Você está convidado!".split("").map((char, index) => (
+          <p className="flex flex-wrap justify-center gap-[0.1em] mb-2">
+            {"Você é meu convidado!".split("").map((char, index) => (
               <motion.span
                 key={index}
                 animate={{
@@ -104,7 +105,7 @@ export default function Invitation({
                 {char}
               </motion.span>
             ))}
-          </div>
+          </p>
           <h1 className="text-5xl sm:text-6xl font-display text-[#f4e4bc] leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] whitespace-nowrap flex items-center gap-3">
             <span>Hebert</span>
             <span>30</span>
@@ -166,6 +167,28 @@ export default function Invitation({
 
         {/* Action Buttons */}
         <motion.div variants={itemVariants} className="w-full max-w-xs space-y-3 mb-0">
+          <motion.button 
+            onClick={onConfirmClick}
+            animate={{
+              rotate: [-2, 2, -2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{ transformOrigin: "top center" }}
+            className="western-btn w-full py-5 rounded-xl flex items-center justify-center gap-2 text-lg"
+          >
+            <img 
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjsSMMbb2gH_4EDbu2S0qIVqM1P1pxdenASN56mTNAzXWm5_qFjCk10ljnzbykmaMf9nHAk1z9GQQ1IUoStYXiJlrpVt977uVZG-vwmIKljrqdidZ8Qp4CqfIxArIjC8WnNqr0DCwUyEtDFkCYw34MjSvkTYj5jwV8ZiSdAi6HJKBOg9Mm8IMkGdS37wtk/w200-h200/check.png" 
+              alt="Check" 
+              className="w-6 h-6 object-contain"
+              referrerPolicy="no-referrer"
+            />
+            Confirmar Presença
+          </motion.button>
+
           <div className="grid grid-cols-2 gap-3">
             <button 
               onClick={onLocationClick}
@@ -193,30 +216,19 @@ export default function Invitation({
             </button>
           </div>
 
-          <motion.button 
-            layoutId="confirm-btn"
-            onClick={onConfirmClick}
-            animate={{
-              rotate: [-2, 2, -2],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{ transformOrigin: "top center" }}
-            className="western-btn w-full py-5 rounded-xl flex items-center justify-center gap-2 text-lg"
+          <button 
+            onClick={onGiftClick}
+            className="western-btn w-full py-4 rounded-xl flex items-center justify-center gap-2 text-base"
           >
             <img 
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjsSMMbb2gH_4EDbu2S0qIVqM1P1pxdenASN56mTNAzXWm5_qFjCk10ljnzbykmaMf9nHAk1z9GQQ1IUoStYXiJlrpVt977uVZG-vwmIKljrqdidZ8Qp4CqfIxArIjC8WnNqr0DCwUyEtDFkCYw34MjSvkTYj5jwV8ZiSdAi6HJKBOg9Mm8IMkGdS37wtk/w200-h200/check.png" 
-              alt="Check" 
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNiF8QohxPDzc1ah52o6GCGFZsmyPlDBvShjGRjkVD3LV13_gSPFKzOBNlz9edDDkQyINjtsSScTPWVlh6zdr9O8YCGeU-3WMeIinZ1ERAn8do6K8p3sQxiv5TnjEQ4Lo7LpSJU9Ug9PP6MGbYZbbsY6zbpgngn57sQSiRqC8WiOv38uu8Ahxv5yz5kEI/w200-h200/presente.png" 
+              alt="Presente" 
               className="w-6 h-6 object-contain"
               referrerPolicy="no-referrer"
             />
-            Confirmar Presença
-          </motion.button>
+            O que presentear
+          </button>
         </motion.div>
       </motion.div>
-    </div>
   );
 }

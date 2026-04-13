@@ -19,6 +19,7 @@ import { db, handleFirestoreError, OperationType, auth, googleProvider, signInWi
 import Invitation from './components/Invitation';
 import WhatToWear from './components/WhatToWear';
 import AdminPanel from './components/AdminPanel';
+import GiftPage from './components/GiftPage';
 import GuestPopup from './components/GuestPopup';
 import SuccessPopup from './components/SuccessPopup';
 import { ViewState } from './types';
@@ -157,7 +158,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full font-sans selection:bg-[#8b5e3c]/30 flex flex-col overflow-x-hidden">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         {view === 'invitation' && (
           <Invitation
             key="invitation"
@@ -166,12 +167,20 @@ export default function App() {
             onConfirmClick={() => setIsPopupOpen(true)}
             onLocationClick={openLocation}
             onAttireClick={() => setView('attire')}
+            onGiftClick={() => setView('gift')}
           />
         )}
 
         {view === 'attire' && (
           <WhatToWear 
             key="attire"
+            onBack={() => setView('invitation')} 
+          />
+        )}
+
+        {view === 'gift' && (
+          <GiftPage 
+            key="gift"
             onBack={() => setView('invitation')} 
           />
         )}

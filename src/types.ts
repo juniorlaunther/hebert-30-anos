@@ -7,4 +7,4 @@ export interface Guest {
   message?: string;
 }
 
-export type ViewState = 'invitation' | 'attire' | 'admin';
+export type ViewState = 'invitation' | 'attire' | 'admin' | 'gift';

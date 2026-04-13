@@ -63,7 +63,7 @@ export default function SuccessPopup({ isOpen, onClose }: SuccessPopupProps) {
                 transition={{ delay: 0.5 }}
                 className="text-[#f4e4bc] font-print text-lg"
               >
-                Sua presença foi registrada com sucesso. Nos vemos na festa!
+                Sua presença foi registrada com sucesso. Te vejo na festa!
               </motion.p>
             </div>
           </motion.div>

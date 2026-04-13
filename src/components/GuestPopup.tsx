@@ -46,7 +46,7 @@ export default function GuestPopup({ isOpen, onClose, onConfirm }: GuestPopupPro
               </div>
               
               <p className="text-[#d2b48c] font-print text-sm mb-6">
-                Digite seu nome para confirmarmos sua presença na festa!
+                Digite seu nome para confirmar sua presença na minha festa!
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">

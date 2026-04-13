@@ -144,7 +144,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="relative flex-1 z-50 flex flex-col items-center justify-center p-6 text-center"
+        className="relative h-screen w-full flex flex-col items-center justify-center p-6 text-center"
       >
         <div className="western-card p-8 rounded-2xl max-w-sm w-full space-y-6">
           <div className="w-20 h-20 bg-[#f4e4bc]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -176,7 +176,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="relative flex-1 z-50 flex flex-col overflow-hidden"
+      className="relative h-screen w-full flex flex-col overflow-hidden"
     >
       {/* Header */}
       <div className="bg-[#52331f] p-4 text-[#f4e4bc] shadow-md flex items-center justify-between border-b-2 border-white/20">

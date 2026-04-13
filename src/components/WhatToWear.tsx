@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence, useIsPresent } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Footprints, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface WhatToWearProps {
@@ -23,7 +23,6 @@ const WOMEN_IMAGES = [
 
 export default function WhatToWear({ onBack }: WhatToWearProps) {
   const [selectedImage, setSelectedImage] = useState<{ url: string; index: number; category: string } | null>(null);
-  const isPresent = useIsPresent();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -62,9 +61,9 @@ export default function WhatToWear({ onBack }: WhatToWearProps) {
     <motion.div
       initial="hidden"
       animate="visible"
-      exit={{ opacity: 0, x: -50 }}
+      exit={{ opacity: 0, scale: 0.95 }}
       variants={containerVariants}
-      className={`relative flex-1 z-40 flex flex-col p-6 ${isPresent ? 'overflow-y-auto' : 'overflow-hidden'}`}
+      className="relative w-full flex flex-col p-6"
     >
       <motion.button
         variants={itemVariants}
