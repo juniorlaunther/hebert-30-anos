@@ -30,6 +30,7 @@ export default function App() {
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [manualPause, setManualPause] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -73,8 +74,10 @@ export default function App() {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        setManualPause(true);
       } else {
         audioRef.current.play();
+        setManualPause(false);
       }
       setIsPlaying(!isPlaying);
     }
@@ -100,17 +103,17 @@ export default function App() {
       if (view === 'admin') {
         audioRef.current.pause();
         setIsPlaying(false);
-      } else if (view === 'invitation' && !isFirstLoad) {
-        // Resume music when coming back from admin, but only if it was playing before or we want it to auto-resume
+      } else if (!manualPause && view !== 'admin' && audioRef.current.paused) {
+        // Resume music if not manually paused and not in admin
         audioRef.current.play().then(() => {
           setIsPlaying(true);
         }).catch(err => console.log("Could not resume audio automatically", err));
       }
     }
-  }, [view, isFirstLoad]);
+  }, [view, manualPause]);
 
-  const handleConfirmPresence = async (data: { name: string; companions: number; message: string }) => {
-    const { name, companions, message } = data;
+  const handleConfirmPresence = async (data: { name: string; message: string }) => {
+    const { name, message } = data;
     
     // Secret code check
     if (name.toUpperCase() === 'PAINEL') {
@@ -130,7 +133,6 @@ export default function App() {
         await updateDoc(doc(db, 'guests', guestDoc.id), {
           confirmed: true,
           confirmedAt: new Date().toISOString(),
-          companions,
           message
         });
       } else {
@@ -139,7 +141,6 @@ export default function App() {
           name,
           confirmed: true,
           confirmedAt: new Date().toISOString(),
-          companions,
           message
         });
       }

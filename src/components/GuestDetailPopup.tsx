@@ -38,7 +38,7 @@ export default function GuestDetailPopup({ guest, onClose }: GuestDetailPopupPro
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div className="p-4 bg-black/20 rounded-xl border border-white/5">
                   <div className="flex items-center gap-2 mb-1">
                     <CheckCircle className="w-4 h-4 text-[#4ade80]" />
@@ -46,16 +46,6 @@ export default function GuestDetailPopup({ guest, onClose }: GuestDetailPopupPro
                   </div>
                   <p className={`font-bold ${guest.confirmed ? 'text-[#4ade80]' : 'text-red-400'}`}>
                     {guest.confirmed ? 'Confirmado' : 'Pendente'}
-                  </p>
-                </div>
-
-                <div className="p-4 bg-black/20 rounded-xl border border-white/5">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Users className="w-4 h-4 text-[#f4e4bc]" />
-                    <span className="text-[10px] font-print text-[#d2b48c] uppercase">Acompanhantes</span>
-                  </div>
-                  <p className="font-bold text-[#f4e4bc]">
-                    {guest.companions || 0}
                   </p>
                 </div>
               </div>

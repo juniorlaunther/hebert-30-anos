@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, Copy, ExternalLink, Gift as GiftIcon } from 'lucide-react';
+import { ArrowLeft, Copy, Gift as GiftIcon } from 'lucide-react';
 import { useState } from 'react';
 
 interface GiftPageProps {
@@ -16,39 +16,6 @@ export default function GiftPage({ onBack }: GiftPageProps) {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const giftSuggestions = [
-    {
-      name: "Bota Western Masculina",
-      image: "https://picsum.photos/seed/boot/300/300",
-      url: "https://www.google.com/search?q=bota+western+masculina"
-    },
-    {
-      name: "Chapéu de Cowboy",
-      image: "https://picsum.photos/seed/hat/300/300",
-      url: "https://www.google.com/search?q=chapeu+cowboy+feltro"
-    },
-    {
-      name: "Cinto com Fivela",
-      image: "https://picsum.photos/seed/belt/300/300",
-      url: "https://www.google.com/search?q=cinto+fivela+country"
-    },
-    {
-      name: "Camisa Xadrez",
-      image: "https://picsum.photos/seed/shirt/300/300",
-      url: "https://www.google.com/search?q=camisa+xadrez+masculina"
-    },
-    {
-      name: "Perfume Masculino",
-      image: "https://picsum.photos/seed/perfume/300/300",
-      url: "https://www.google.com/search?q=perfume+masculino+importado"
-    },
-    {
-      name: "Jaqueta de Couro",
-      image: "https://picsum.photos/seed/jacket/300/300",
-      url: "https://www.google.com/search?q=jaqueta+couro+masculina"
-    }
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,7 +47,7 @@ export default function GiftPage({ onBack }: GiftPageProps) {
         Voltar
       </motion.button>
 
-      <div className="flex flex-col items-center text-center pb-10">
+      <div className="flex flex-col items-center text-center pb-4">
         <motion.div 
           variants={itemVariants}
           className="w-20 h-20 western-card rounded-full flex items-center justify-center mb-6"
@@ -104,7 +71,7 @@ export default function GiftPage({ onBack }: GiftPageProps) {
           variants={itemVariants}
           className="text-[#d2b48c] font-print text-sm mb-8 max-w-xs"
         >
-          Sua presença é o meu maior presente, mas se desejar me agraciar, aqui estão algumas sugestões.
+          Sua presença é o meu maior presente, mas se desejar me agraciar, aqui estão algumas informações.
         </motion.p>
 
         {/* Sizes Info */}
@@ -132,7 +99,7 @@ export default function GiftPage({ onBack }: GiftPageProps) {
         {/* PIX Section */}
         <motion.div 
           variants={itemVariants}
-          className="western-card p-6 rounded-xl w-full max-w-sm mb-8"
+          className="western-card p-6 rounded-xl w-full max-w-sm mb-4"
         >
           <h3 className="font-display text-[#f4e4bc] mb-2 text-lg">Presente em Dinheiro</h3>
           <p className="text-xs text-[#d2b48c] font-print mb-4">Se preferir, você pode enviar um PIX:</p>
@@ -144,35 +111,6 @@ export default function GiftPage({ onBack }: GiftPageProps) {
             {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5 text-[#d2b48c]" />}
           </div>
           {copied && <p className="text-[10px] text-green-500 mt-2 font-print">Chave copiada!</p>}
-        </motion.div>
-
-        {/* Gift Suggestions Grid */}
-        <motion.div variants={itemVariants} className="w-full max-w-sm">
-          <h3 className="font-display text-[#f4e4bc] mb-6 text-lg">Sugestões de Presentes</h3>
-          <div className="grid grid-cols-2 gap-4">
-            {giftSuggestions.map((gift, index) => (
-              <a 
-                key={index}
-                href={gift.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="western-card p-3 rounded-xl flex flex-col items-center gap-3 group transition-transform active:scale-95"
-              >
-                <div className="w-full aspect-square rounded-lg overflow-hidden bg-black/20">
-                  <img 
-                    src={gift.image} 
-                    alt={gift.name}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-[10px] font-print leading-tight">{gift.name}</span>
-                  <ExternalLink className="w-3 h-3 text-[#d2b48c]" />
-                </div>
-              </a>
-            ))}
-          </div>
         </motion.div>
       </div>
     </motion.div>

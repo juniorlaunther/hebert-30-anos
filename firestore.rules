@@ -19,7 +19,6 @@ service cloud.firestore {
              data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
              data.confirmed is bool &&
              (!('confirmedAt' in data) || data.confirmedAt is string) &&
-             (!('companions' in data) || (data.companions is number && data.companions >= 0 && data.companions <= 10)) &&
              (!('message' in data) || (data.message is string && data.message.size() <= 500));
     }
 

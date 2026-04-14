@@ -3,7 +3,6 @@ export interface Guest {
   name: string;
   confirmed: boolean;
   confirmedAt?: string;
-  companions?: number;
   message?: string;
 }
 

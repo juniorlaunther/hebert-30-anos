@@ -91,26 +91,16 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
     }
   };
 
-  const sortedGuests = [...guests].sort((a, b) => {
-    if (filterType === 'confirmed') {
-      if (a.confirmed === b.confirmed) return a.name.localeCompare(b.name);
-      return a.confirmed ? -1 : 1;
-    }
-    if (filterType === 'unconfirmed') {
-      if (a.confirmed === b.confirmed) return a.name.localeCompare(b.name);
-      return a.confirmed ? 1 : -1;
-    }
-    return a.name.localeCompare(b.name);
-  });
-
-  const filteredGuests = sortedGuests.filter(g => 
-    g.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredGuests = guests
+    .filter(g => {
+      const matchesSearch = g.name.toLowerCase().includes(searchTerm.toLowerCase());
+      if (filterType === 'confirmed') return matchesSearch && g.confirmed;
+      if (filterType === 'unconfirmed') return matchesSearch && !g.confirmed;
+      return matchesSearch;
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const confirmedCount = guests.filter(g => g.confirmed).length;
-  const totalWithCompanions = guests.reduce((acc, g) => acc + 1 + (g.companions || 0), 0);
-  const confirmedWithCompanions = guests.filter(g => g.confirmed).reduce((acc, g) => acc + 1 + (g.companions || 0), 0);
-  const confirmedCompanionsOnly = guests.filter(g => g.confirmed).reduce((acc, g) => acc + (g.companions || 0), 0);
 
   const handleLogin = async () => {
     const adminEmails = ['canalpapeldetrouxa@gmail.com', 'contatohebertt@gmail.com'];
@@ -197,12 +187,10 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
           <div className="western-card p-4 rounded-xl">
             <p className="text-[10px] text-[#d2b48c] uppercase font-print">Total Convites</p>
             <p className="text-2xl font-display text-[#f4e4bc]">{guests.length}</p>
-            <p className="text-[10px] text-[#d2b48c] font-print">({totalWithCompanions} pessoas)</p>
           </div>
           <div className="western-card p-4 rounded-xl">
             <p className="text-[10px] text-[#d2b48c] uppercase font-print">Confirmados</p>
-            <p className="text-2xl font-display text-[#4ade80]">{confirmedWithCompanions}</p>
-            <p className="text-[10px] text-[#4ade80] font-print">({confirmedCompanionsOnly} acompanhantes)</p>
+            <p className="text-2xl font-display text-[#4ade80]">{confirmedCount}</p>
           </div>
         </div>
 
@@ -267,9 +255,6 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
                 {guest.confirmed && (
                   <div className="space-y-1">
                     <p className="text-[10px] text-[#4ade80] font-print uppercase">Confirmado</p>
-                    {guest.companions !== undefined && guest.companions > 0 && (
-                      <p className="text-[10px] text-[#d2b48c] font-print">+{guest.companions} acompanhante(s)</p>
-                    )}
                     {guest.message && (
                       <p className="text-[10px] text-[#d2b48c] font-print italic line-clamp-1">"{guest.message}"</p>
                     )}

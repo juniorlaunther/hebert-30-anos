@@ -144,7 +144,7 @@ export default function Invitation({
             </div>
             <div>
               <p className="text-[10px] font-print text-[#d2b48c] uppercase">Horário</p>
-              <p className="font-bold text-[#f4e4bc]">A partir das 18:00h</p>
+              <p className="font-bold text-[#f4e4bc]">A partir das 19:00h</p>
             </div>
           </div>
 

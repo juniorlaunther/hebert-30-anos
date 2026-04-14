@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, CheckCircle2, Minus, Plus } from 'lucide-react';
 
 interface GuestPopupProps {
+  key?: string;
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (data: { name: string; companions: number; message: string }) => void;
+  onConfirm: (data: { name: string; message: string }) => void;
 }
 
 export default function GuestPopup({ isOpen, onClose, onConfirm }: GuestPopupProps) {
   const [name, setName] = useState('');
-  const [companions, setCompanions] = useState(0);
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,11 +18,9 @@ export default function GuestPopup({ isOpen, onClose, onConfirm }: GuestPopupPro
     if (name.trim()) {
       onConfirm({ 
         name: name.trim(), 
-        companions: Number(companions), 
         message: message.trim() 
       });
       setName('');
-      setCompanions(0);
       setMessage('');
     }
   };
@@ -56,37 +54,11 @@ export default function GuestPopup({ isOpen, onClose, onConfirm }: GuestPopupPro
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Ex: João Silva"
+                    placeholder="Ex: Julieta"
                     autoFocus
                     required
                     className="w-full px-4 py-3 rounded-lg border-2 border-[#d2b48c] bg-[#2a1b12] text-[#f4e4bc] placeholder-[#a68b6d] focus:outline-none focus:border-white transition-colors font-print"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-[10px] font-print text-[#d2b48c] uppercase mb-2">Quantos acompanhantes?</label>
-                  <div className="flex items-center justify-between western-card rounded-lg p-2 bg-[#2a1b12]/50">
-                    <button
-                      type="button"
-                      onClick={() => setCompanions(Math.max(0, companions - 1))}
-                      className="w-10 h-10 flex items-center justify-center bg-[#52331f] border-2 border-[#d2b48c] rounded-lg text-[#f4e4bc] active:scale-90 transition-transform"
-                    >
-                      <Minus className="w-5 h-5" />
-                    </button>
-                    
-                    <div className="flex flex-col items-center">
-                      <span className="text-2xl font-display text-[#f4e4bc]">{companions}</span>
-                      <span className="text-[8px] font-print text-[#d2b48c] uppercase">Pessoas</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => setCompanions(Math.min(10, companions + 1))}
-                      className="w-10 h-10 flex items-center justify-center bg-[#52331f] border-2 border-[#d2b48c] rounded-lg text-[#f4e4bc] active:scale-90 transition-transform"
-                    >
-                      <Plus className="w-5 h-5" />
-                    </button>
-                  </div>
                 </div>
 
                 <div>
